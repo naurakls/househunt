@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment (berisi rahasia: MONGO_URI, JWT_KEY)
+.env
+.env.*
+!.env.example
+
+# Foto properti hasil upload user
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Build & log
+dist/
+*.log
+.DS_Store

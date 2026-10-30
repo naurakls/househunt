@@ -1,0 +1,234 @@
+/* =========================================================
+   HouseHunt Theme: "warm editorial"
+   1) Design tokens (CSS variables)
+   2) Override Bootstrap supaya memakai token yang sama
+   3) Penyesuaian kecil untuk Antd & MUI
+   ========================================================= */
+
+:root {
+  /* --- Token utama (sesuai arahan desain) --- */
+  --bg: #F7F4EF;
+  --surface: #FFFFFF;
+  --ink: #1F2A2E;
+  --muted: #5F6964;        /* digelapkan sedikit dari #6B7570 agar kontras teks lebih nyaman */
+  --primary: #2F5D50;
+  --accent: #E07A5F;
+  --line: #E6E1D8;
+
+  /* --- Turunan --- */
+  --surface-2: #FBF9F5;
+  --primary-hover: #264D42;
+  --primary-soft: #E3EEE9;
+  --accent-hover: #C9644B;
+  --accent-soft: #FBE4DC;
+  --accent-ink: #A9472F;   /* teks terracotta di atas latar soft */
+  --warn-soft: #F7EDD5;
+  --warn-ink: #8A6516;
+  --neutral-soft: #EFECE6;
+  /* Warna batang grafik: keluarga sage, chroma cukup agar tidak terbaca abu-abu (lolos validator dataviz) */
+  --chart: #2A8A6A;
+  --chart-track: #EEF1EE;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(31, 42, 46, 0.04);
+  --shadow: 0 1px 2px rgba(31, 42, 46, 0.04), 0 8px 24px rgba(31, 42, 46, 0.05);
+  --shadow-hover: 0 2px 4px rgba(31, 42, 46, 0.05), 0 14px 32px rgba(31, 42, 46, 0.08);
+  --transition: 200ms ease;
+  --nav-h: 72px;
+
+  --font-heading: "Newsreader", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* --- Override variabel Bootstrap --- */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--ink);
+  --bs-body-font-family: var(--font-body);
+  --bs-body-font-size: 1rem;
+  --bs-body-line-height: 1.65;
+  --bs-emphasis-color: var(--ink);
+  --bs-heading-color: var(--ink);
+  --bs-secondary-color: var(--muted);
+  --bs-tertiary-bg: var(--surface-2);
+  --bs-border-color: var(--line);
+  --bs-border-radius: var(--radius-sm);
+  --bs-border-radius-sm: 8px;
+  --bs-border-radius-lg: var(--radius);
+  --bs-border-radius-xl: var(--radius);
+  --bs-primary: #2F5D50;
+  --bs-primary-rgb: 47, 93, 80;
+  --bs-link-color: var(--primary);
+  --bs-link-color-rgb: 47, 93, 80;
+  --bs-link-hover-color: var(--primary-hover);
+  --bs-link-hover-color-rgb: 38, 77, 66;
+  --bs-focus-ring-color: rgba(47, 93, 80, 0.2);
+  --bs-form-invalid-color: var(--accent-ink);
+  --bs-form-invalid-border-color: var(--accent);
+  --bs-form-valid-color: var(--primary);
+  --bs-form-valid-border-color: var(--primary);
+}
+
+/* ---------- Dasar ---------- */
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+a { text-decoration: none; transition: color var(--transition); }
+::selection { background: var(--primary-soft); color: var(--ink); }
+
+.container { --bs-gutter-x: 2rem; }
+@media (min-width: 1400px) { .container { max-width: 1240px; } }
+
+.text-muted { color: var(--muted) !important; }
+
+/* ---------- Tombol Bootstrap ---------- */
+.btn {
+  --bs-btn-font-weight: 600;
+  --bs-btn-padding-y: 0.6rem;
+  --bs-btn-padding-x: 1.15rem;
+  --bs-btn-border-radius: var(--radius-sm);
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem rgba(47, 93, 80, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color var(--transition), border-color var(--transition),
+    color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.btn-sm { --bs-btn-padding-y: 0.4rem; --bs-btn-padding-x: 0.8rem; --bs-btn-font-size: 0.85rem; --bs-btn-border-radius: 8px; }
+.btn-lg { --bs-btn-padding-y: 0.8rem; --bs-btn-padding-x: 1.5rem; --bs-btn-font-size: 1rem; }
+
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary-hover);
+  --bs-btn-hover-border-color: var(--primary-hover);
+  --bs-btn-active-bg: var(--primary-hover);
+  --bs-btn-active-border-color: var(--primary-hover);
+  --bs-btn-disabled-bg: var(--primary);
+  --bs-btn-disabled-border-color: var(--primary);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--primary);
+  --bs-btn-border-color: var(--line);
+  --bs-btn-bg: var(--surface);
+  --bs-btn-hover-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary-soft);
+  --bs-btn-hover-border-color: var(--primary-soft);
+  --bs-btn-active-color: var(--primary);
+  --bs-btn-active-bg: var(--primary-soft);
+  --bs-btn-active-border-color: var(--primary);
+  --bs-btn-disabled-color: var(--muted);
+  --bs-btn-disabled-border-color: var(--line);
+}
+/* Terracotta: khusus aksi penting (Cari, Booking, Pasang properti) */
+.btn-accent {
+  --bs-btn-color: #FFFFFF;
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: #FFFFFF;
+  --bs-btn-hover-bg: var(--accent-hover);
+  --bs-btn-hover-border-color: var(--accent-hover);
+  --bs-btn-active-color: #FFFFFF;
+  --bs-btn-active-bg: var(--accent-hover);
+  --bs-btn-active-border-color: var(--accent-hover);
+  --bs-btn-disabled-color: #FFFFFF;
+  --bs-btn-disabled-bg: var(--accent);
+  --bs-btn-disabled-border-color: var(--accent);
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem rgba(224, 122, 95, 0.25);
+}
+.btn-ghost {
+  --bs-btn-color: var(--ink);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-color: var(--ink);
+  --bs-btn-hover-bg: var(--neutral-soft);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-bg: var(--neutral-soft);
+  --bs-btn-active-border-color: transparent;
+}
+.btn-outline-danger {
+  --bs-btn-color: var(--accent-ink);
+  --bs-btn-border-color: var(--line);
+  --bs-btn-bg: var(--surface);
+  --bs-btn-hover-color: var(--accent-ink);
+  --bs-btn-hover-bg: var(--accent-soft);
+  --bs-btn-hover-border-color: var(--accent-soft);
+  --bs-btn-active-color: var(--accent-ink);
+  --bs-btn-active-bg: var(--accent-soft);
+  --bs-btn-active-border-color: var(--accent);
+}
+.btn-link { --bs-btn-color: var(--primary); --bs-btn-hover-color: var(--primary-hover); font-weight: 600; text-decoration: none; }
+
+/* ---------- Form Bootstrap ---------- */
+.form-label { font-weight: 500; font-size: 0.875rem; color: var(--ink); margin-bottom: 0.4rem; }
+.form-control, .form-select {
+  border-color: var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+  background-color: var(--surface);
+  color: var(--ink);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-select { padding-right: 2.25rem; }
+.form-control::placeholder { color: #A3A9A5; }
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(47, 93, 80, 0.12);
+}
+.form-control-sm, .form-select-sm { padding-top: 0.4rem; padding-bottom: 0.4rem; font-size: 0.875rem; border-radius: 8px; }
+.form-text { color: var(--muted); font-size: 0.84rem; }
+.invalid-feedback { font-size: 0.84rem; }
+.form-check-input { border-color: #CFC8BC; }
+.form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+.form-check-input:focus { border-color: var(--primary); box-shadow: 0 0 0 0.2rem rgba(47, 93, 80, 0.12); }
+.form-switch .form-check-input:focus:not(:checked) {
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%232F5D50'/%3e%3c/svg%3e");
+}
+
+/* ---------- Komponen Bootstrap lain ---------- */
+.card {
+  --bs-card-bg: var(--surface);
+  --bs-card-border-color: var(--line);
+  --bs-card-border-radius: var(--radius);
+  --bs-card-inner-border-radius: calc(var(--radius) - 1px);
+  box-shadow: var(--shadow-sm);
+}
+.dropdown-menu {
+  --bs-dropdown-border-color: var(--line);
+  --bs-dropdown-border-radius: var(--radius);
+  --bs-dropdown-link-active-bg: var(--primary-soft);
+  --bs-dropdown-link-active-color: var(--primary);
+  --bs-dropdown-link-hover-bg: var(--surface-2);
+  --bs-dropdown-padding-y: 0.4rem;
+  box-shadow: var(--shadow);
+}
+.dropdown-item { border-radius: 8px; margin: 0 0.4rem; width: auto; padding: 0.5rem 0.75rem; }
+.offcanvas { --bs-offcanvas-bg: var(--bg); --bs-offcanvas-border-color: var(--line); }
+.modal { --bs-modal-border-radius: var(--radius); --bs-modal-border-color: var(--line); }
+.spinner-border { --bs-spinner-border-width: 0.18em; color: var(--primary); }
+
+/* ---------- Penyesuaian Antd ---------- */
+.ant-app { font-family: var(--font-body); color: var(--ink); }
+.ant-modal .ant-modal-title { font-family: var(--font-heading); font-weight: 600; letter-spacing: -0.01em; }
+.ant-modal .ant-modal-content { border: 1px solid var(--line); }
+.ant-table-wrapper .ant-table { border-radius: var(--radius); }
+.ant-table-wrapper .ant-table-thead > tr > th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ant-popconfirm .ant-popconfirm-title { font-weight: 600; }
